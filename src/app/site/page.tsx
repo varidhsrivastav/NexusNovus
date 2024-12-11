@@ -41,7 +41,8 @@ export default function Home() {
         </section>
         <div className="flex  justify-center gap-4 flex-wrap mt-6">
 {/* WIP: wore up the card price and stripe   */}
-          {}
+{/* TODO: */}
+         
           </div>
       </>
   );

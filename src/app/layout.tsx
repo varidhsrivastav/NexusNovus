@@ -2,11 +2,9 @@ import type { Metadata } from "next";
 import { DM_Sans } from 'next/font/google'
 // import localFont from "next/font/local";
 import "./globals.css";
-import { ClerkProvider } from '@clerk/nextjs'
-import { dark } from '@clerk/themes'
 import { ThemeProvider } from "@/providers/theme-provider";
-// import ModalProvider from '@/providers/modal-provider'
-// import { Toaster } from '@/components/ui/toaster'
+import ModalProvider from "@/providers/modal-provider";
+import { Toaster } from "@/components/ui/toaster";
 // import { Toaster as SonnarToaster } from '@/components/ui/sonner'
 // const geistSans = localFont({
 //   src: "./fonts/GeistVF.woff",
@@ -32,7 +30,6 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-  <ClerkProvider appearance={{baseTheme:dark}}>
     <html lang="en" suppressHydrationWarning>
       <body
         className={font.className}
@@ -42,10 +39,12 @@ export default function RootLayout({
        defaultTheme="system"
        enableSystem
        disableTransitionOnChange>
+        <ModalProvider>
         {children}
+        <Toaster/>
+        </ModalProvider>
       </ThemeProvider>
       </body>
     </html>
-    </ClerkProvider>
   );
 }
