@@ -1,5 +1,5 @@
 datasource db {
-  provider     = "mysql"
+  provider     = "postgresql"
   url          = env("DATABASE_URL")
   relationMode = "prisma"
 }
@@ -311,7 +311,7 @@ model ClassName {
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
   funnelId   String
-  customData String?  @db.LongText
+  customData String?  @db.Text
   Funnel     Funnel   @relation(fields: [funnelId], references: [id], onDelete: Cascade)
 
   @@index([funnelId])
@@ -324,7 +324,7 @@ model FunnelPage {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
   visits       Int      @default(0)
-  content      String?  @db.LongText
+  content      String?  @db.Text
   order        Int
   previewImage String?  @db.Text
   funnelId     String
@@ -431,3 +431,93 @@ model AddOns {
 
   @@index([agencyId])
 }
+
+// enum Plans {
+//   STANDARD
+//   PRO
+//   ULTIMATE
+// }
+
+// enum Role {
+//   OWNER
+//   CUSTOMER
+// }
+
+// model ChatBot {
+//   id            String    @id @default(uuid())
+//   welcomeMessage String?
+//   icons         String?
+//   domain        String?
+//   onDelete      String?
+//   domainId      String?
+// }
+
+// model Billings {
+//   id     String  @id @default(uuid())
+//   plan   Plans
+//   credit Int
+//   user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+//   userId String
+// }
+
+// model HelpDesk {
+//   id      String  @id @default(uuid())
+//   question String
+//   answer  String
+// }
+
+// model FilterQuestion {
+//   id       String  @id @default(uuid())
+//   question String
+//   answer   String
+//   domain   String?
+//   domainId String?
+// }
+
+// model CustomerResponse {
+//   id         String  @id @default(uuid())
+//   question   String
+//   answers    String
+//   customer   Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+//   customerId String
+// }
+
+// model Customer {
+//   id        String  @id @default(uuid())
+//   email     String  @unique
+//   question  String?
+//   chatroom  ChatRoom?
+//   domain    String?
+//   domainId  String?
+//   responses CustomerResponse[]
+// }
+
+// model ChatBot {
+//   id        String       @id @default(uuid())
+//   live      Boolean      @default(false)
+//   mailed    Boolean      @default(false)
+//   createdAt DateTime     @default(now())
+//   updatedAt DateTime     @updatedAt
+//   customers Customer[]
+//   messages  ChatMessage[]
+// }
+
+// model ChatRoom {
+//   id        String       @id @default(uuid())
+//   live      Boolean      @default(false)
+//   mailed    Boolean      @default(false)
+//   createdAt DateTime     @default(now())
+//   updatedAt DateTime     @updatedAt
+//   customers Customer[]
+//   messages  ChatMessage[]
+// }
+
+// model ChatMessage {
+//   id        String   @id @default(uuid())
+//   live      Boolean  @default(false)
+//   mailed    Boolean  @default(false)
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+//   customer  Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+//   customerId String
+// }
