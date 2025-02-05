@@ -38,6 +38,7 @@ const AllSubaccountsPage = async ({ params }: Props) => {
 
   return (
     <AlertDialog>
+      {params.agencyId}
       <div className="flex flex-col ">
         <CreateSubaccountButton
           user={user}
