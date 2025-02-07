@@ -32,13 +32,13 @@ type Props = {
 };
 
 const AllSubaccountsPage = async ({ params }: Props) => {
-  console.log(await params.agencyId);
+  console.log(params.agencyId); // Removed unnecessary `await`
+
   const user = await getAuthUserDetails();
-  if (!user) return;
+  if (!user) return null; // Ensure function returns a valid JSX value
 
   return (
     <AlertDialog>
-      {params.agencyId}
       <div className="flex flex-col ">
         <CreateSubaccountButton
           user={user}
@@ -92,7 +92,7 @@ const AllSubaccountsPage = async ({ params }: Props) => {
                           Are your absolutely sure
                         </AlertDialogTitle>
                         <AlertDescription className="text-left">
-                          This action cannot be undon. This will delete the
+                          This action cannot be undone. This will delete the
                           subaccount and all data related to the subaccount.
                         </AlertDescription>
                       </AlertDialogHeader>
