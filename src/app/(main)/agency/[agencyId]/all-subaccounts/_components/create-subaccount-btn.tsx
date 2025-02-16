@@ -1,12 +1,12 @@
-"use client";
-import SubAccountDetails from "@/components/forms/subaccount-details";
-import CustomModal from "@/components/global/custom-modal";
-import { Button } from "@/components/ui/button";
-import { useModal } from "@/providers/modal-provider";
-import { Agency, AgencySidebarOption, SubAccount, User } from "@prisma/client";
-import { PlusCircleIcon } from "lucide-react";
-import React from "react";
-import { twMerge } from "tailwind-merge";
+'use client'
+import SubAccountDetails from '@/components/forms/subaccount-details'
+import CustomModal from '@/components/global/custom-modal'
+import { Button } from '@/components/ui/button'
+import { useModal } from '@/providers/modal-provider'
+import { Agency, AgencySidebarOption, SubAccount, User } from '@prisma/client'
+import { PlusCircleIcon } from 'lucide-react'
+import React from 'react'
+import { twMerge } from 'tailwind-merge'
 
 type Props = {
   user: User & {
@@ -14,25 +14,25 @@ type Props = {
       | (
           | Agency
           | (null & {
-              SubAccount: SubAccount[];
-              SideBarOption: AgencySidebarOption[];
+              SubAccount: SubAccount[]
+              SideBarOption: AgencySidebarOption[]
             })
         )
-      | null;
-  };
-  id: string;
-  className: string;
-};
+      | null
+  }
+  id: string
+  className: string
+}
 
 const CreateSubaccountButton = ({ className, id, user }: Props) => {
-  const { setOpen } = useModal();
-  const agencyDetails = user.Agency;
+  const { setOpen } = useModal()
+  const agencyDetails = user.Agency
 
-  if (!agencyDetails) return;
+  if (!agencyDetails) return
 
   return (
     <Button
-      className={twMerge("w-full flex gap-4", className)}
+      className={twMerge('w-full flex gap-4', className)}
       onClick={() => {
         setOpen(
           <CustomModal
@@ -44,14 +44,14 @@ const CreateSubaccountButton = ({ className, id, user }: Props) => {
               userId={user.id}
               userName={user.name}
             />
-          </CustomModal>,
-        );
+          </CustomModal>
+        )
       }}
     >
       <PlusCircleIcon size={15} />
       Create Sub Account
     </Button>
-  );
-};
+  )
+}
 
-export default CreateSubaccountButton;
+export default CreateSubaccountButton
