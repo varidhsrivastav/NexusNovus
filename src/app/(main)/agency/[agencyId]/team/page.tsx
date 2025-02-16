@@ -1,40 +1,36 @@
 import { db } from "@/lib/db";
-import React from "react";
 import DataTable from "./data-table";
 import { Plus } from "lucide-react";
 import { currentUser } from "@clerk/nextjs/server";
 import { columns } from "./columns";
-import SendInvitation from "@/components/forms/send-invitation";
+import { Suspense, lazy } from "react";
 
 type Props = {
   params: { agencyId: string };
 };
 
+// Lazily load the Client Component to avoid rendering issues
+const SendInvitation = lazy(() => import("@/components/forms/send-invitation"));
+
 const TeamPage = async ({ params }: Props) => {
   const authUser = await currentUser();
-  const teamMembers = await db.user.findMany({
-    where: {
-      Agency: {
-        id: params.agencyId,
-      },
-    },
-    include: {
-      Agency: { include: { SubAccount: true } },
-      Permissions: { include: { SubAccount: true } },
-    },
-  });
-
   if (!authUser) return null;
-  const agencyDetails = await db.agency.findUnique({
-    where: {
-      id: params.agencyId,
-    },
-    include: {
-      SubAccount: true,
-    },
-  });
 
-  if (!agencyDetails) return;
+  const [teamMembers, agencyDetails] = await Promise.all([
+    db.user.findMany({
+      where: { Agency: { id: params.agencyId } },
+      include: {
+        Agency: { include: { SubAccount: true } },
+        Permissions: { include: { SubAccount: true } },
+      },
+    }),
+    db.agency.findUnique({
+      where: { id: params.agencyId },
+      include: { SubAccount: true },
+    }),
+  ]);
+
+  if (!agencyDetails) return null;
 
   return (
     <DataTable
@@ -44,11 +40,15 @@ const TeamPage = async ({ params }: Props) => {
           Add
         </>
       }
-      modalChildren={<SendInvitation agencyId={agencyDetails.id} />}
+      modalChildren={
+        <Suspense fallback={<div>Loading...</div>}>
+          <SendInvitation agencyId={agencyDetails.id} />
+        </Suspense>
+      }
       filterValue="name"
       columns={columns}
       data={teamMembers}
-    ></DataTable>
+    />
   );
 };
 

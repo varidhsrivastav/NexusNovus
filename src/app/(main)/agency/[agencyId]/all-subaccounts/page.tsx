@@ -32,12 +32,13 @@ type Props = {
 };
 
 const AllSubaccountsPage = async ({ params }: Props) => {
-  console.log(params.agencyId); // Removed unnecessary `await`
-
+  const {agencyId} =  params;
+  console.log(agencyId);
   const user = await getAuthUserDetails();
   if (!user) return null; // Ensure function returns a valid JSX value
 
   return (
+    <>
     <AlertDialog>
       <div className="flex flex-col ">
         <CreateSubaccountButton
@@ -117,6 +118,8 @@ const AllSubaccountsPage = async ({ params }: Props) => {
         </Command>
       </div>
     </AlertDialog>
+   
+    </>
   );
 };
 

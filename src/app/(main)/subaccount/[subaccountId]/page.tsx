@@ -40,7 +40,7 @@ type Props = {
 };
 
 const SubaccountPageId = async ({ params, searchParams }: Props) => {
-  let currency = "USD";
+  let currency = "INR";
   let sessions;
   let totalClosedSessions;
   let totalPendingSessions;
@@ -129,7 +129,7 @@ const SubaccountPageId = async ({ params, searchParams }: Props) => {
   return (
     <BlurPage>
       <div className="relative h-full">
-        {/* {!subaccountDetails.connectAccountId && (
+        {!subaccountDetails.connectAccountId && (
           <div className="absolute -top-10 -left-10 right-0 bottom-0 z-30 flex items-center justify-center backdrop-blur-md bg-background/50">
             <Card>
               <CardHeader>
@@ -147,14 +147,14 @@ const SubaccountPageId = async ({ params, searchParams }: Props) => {
               </CardHeader>
             </Card>
           </div>
-        )} */}
+        )}
         <div className="flex flex-col gap-4 pb-6">
           <div className="flex gap-4 flex-col xl:!flex-row">
             <Card className="flex-1 relative">
               <CardHeader>
                 <CardDescription>Income</CardDescription>
                 <CardTitle className="text-4xl">
-                  {net ? `${currency} ${net.toFixed(2)}` : `$0.00`}
+                  {net ? `${currency} ${net.toFixed(2)}` : `₹0.00`}
                 </CardTitle>
                 <small className="text-xs text-muted-foreground">
                   For the year {currentYear}
@@ -171,7 +171,7 @@ const SubaccountPageId = async ({ params, searchParams }: Props) => {
                 <CardTitle className="text-4xl">
                   {potentialIncome
                     ? `${currency} ${potentialIncome.toFixed(2)}`
-                    : `$0.00`}
+                    : `₹0.00`}
                 </CardTitle>
                 <small className="text-xs text-muted-foreground">
                   For the year {currentYear}

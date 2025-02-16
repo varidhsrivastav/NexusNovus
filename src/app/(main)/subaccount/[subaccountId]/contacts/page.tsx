@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/table";
 import { db } from "@/lib/db";
 import { Contact, SubAccount, Ticket } from "@prisma/client";
-import {format} from "date-fns/format";
+import { format } from "date-fns/format";
 import React from "react";
 import CraeteContactButton from "./_components/create-contact-btn";
 
@@ -48,10 +48,10 @@ const ContactPage = async ({ params }: Props) => {
   const allContacts = contacts.Contact;
 
   const formatTotal = (tickets: Ticket[]) => {
-    if (!tickets || !tickets.length) return "$0.00";
+    if (!tickets || !tickets.length) return "₹0.00";
     const amt = new Intl.NumberFormat(undefined, {
       style: "currency",
-      currency: "USD",
+      currency: "INR",
     });
 
     const laneAmt = tickets.reduce(
@@ -88,7 +88,7 @@ const ContactPage = async ({ params }: Props) => {
               </TableCell>
               <TableCell>{contact.email}</TableCell>
               <TableCell>
-                {formatTotal(contact.Ticket) === "$0.00" ? (
+                {formatTotal(contact.Ticket) === "₹0.00" ? (
                   <Badge variant={"destructive"}>Inactive</Badge>
                 ) : (
                   <Badge className="bg-emerald-700">Active</Badge>

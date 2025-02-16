@@ -58,7 +58,7 @@ const PipelineLane: React.FC<PipelaneLaneProps> = ({
 
   const amt = new Intl.NumberFormat(undefined, {
     style: "currency",
-    currency: "USD",
+    currency: "INR",
   });
 
   const laneAmt = useMemo(() => {

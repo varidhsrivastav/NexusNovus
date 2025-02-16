@@ -76,7 +76,7 @@ export default async function Home() {
               </CardHeader>
               <CardContent>
                 <span className="text-4xl font-bold">
-                  {card.unit_amount && card.unit_amount / 100}
+                  ₹{card.unit_amount && card.unit_amount / 100}
                 </span>
                 <span className="text-muted-foreground">
                   <span>/ {card.recurring?.interval}</span>
@@ -100,7 +100,7 @@ export default async function Home() {
                     {
                       "!bg-muted-foreground":
                         card.nickname !== "Unlimited Saas",
-                    },
+                    }
                   )}
                 >
                   Get Started
@@ -120,7 +120,7 @@ export default async function Home() {
               <CardDescription>{pricingCards[0].description}</CardDescription>
             </CardHeader>
             <CardContent>
-              <span className="text-4xl font-bold">$0</span>
+              <span className="text-4xl font-bold">₹0</span>
               <span>/ month</span>
             </CardContent>
             <CardFooter className="flex flex-col  items-start gap-4 ">
@@ -140,7 +140,7 @@ export default async function Home() {
                   "w-full text-center bg-primary p-2 rounded-md",
                   {
                     "!bg-muted-foreground": true,
-                  },
+                  }
                 )}
               >
                 Get Started
@@ -149,6 +149,27 @@ export default async function Home() {
           </Card>
         </div>
       </section>
+      <footer className="border-t mt-20 bg-background">
+        <div className="mx-auto max-w-7xl px-6 py-12 md:flex md:items-center md:justify-between lg:px-8">
+          <div className="flex justify-center space-x-6 md:order-2">
+            <Link href="#" className="text-muted-foreground hover:text-primary">
+              Terms
+            </Link>
+            <Link href="#" className="text-muted-foreground hover:text-primary">
+              Privacy
+            </Link>
+            <Link href="#" className="text-muted-foreground hover:text-primary">
+              Contact
+            </Link>
+          </div>
+          <div className="mt-8 md:order-1 md:mt-0">
+            <p className="text-center text-sm text-muted-foreground">
+              &copy; {new Date().getFullYear()} NexusNovus. All rights reserved.
+              Built with ❤️
+            </p>
+          </div>
+        </div>
+      </footer>
     </>
   );
 }

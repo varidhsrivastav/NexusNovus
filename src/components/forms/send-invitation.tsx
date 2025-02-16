@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { z } from "zod";
 import {
   Card,
@@ -35,13 +35,13 @@ interface SendInvitationProps {
   agencyId: string;
 }
 
+const userDataSchema = z.object({
+  email: z.string().email(),
+  role: z.enum(["AGENCY_ADMIN", "SUBACCOUNT_USER", "SUBACCOUNT_GUEST"]),
+});
+
 const SendInvitation: React.FC<SendInvitationProps> = ({ agencyId }) => {
   const { toast } = useToast();
-  const userDataSchema = z.object({
-    email: z.string().email(),
-    role: z.enum(["AGENCY_ADMIN", "SUBACCOUNT_USER", "SUBACCOUNT_GUEST"]),
-  });
-
   const form = useForm<z.infer<typeof userDataSchema>>({
     resolver: zodResolver(userDataSchema),
     mode: "onChange",
@@ -50,6 +50,14 @@ const SendInvitation: React.FC<SendInvitationProps> = ({ agencyId }) => {
       role: "SUBACCOUNT_USER",
     },
   });
+
+  // Ensure form values are properly set in useEffect
+  useEffect(() => {
+    form.reset({
+      email: "",
+      role: "SUBACCOUNT_USER",
+    });
+  }, [form]);
 
   const onSubmit = async (values: z.infer<typeof userDataSchema>) => {
     try {
@@ -63,11 +71,12 @@ const SendInvitation: React.FC<SendInvitationProps> = ({ agencyId }) => {
         title: "Success",
         description: "Created and sent invitation",
       });
+      form.reset(); // Reset form after successful submission
     } catch (error) {
       console.log(error);
       toast({
         variant: "destructive",
-        title: "Oppse!",
+        title: "Oops!",
         description: "Could not send invitation",
       });
     }
@@ -79,8 +88,7 @@ const SendInvitation: React.FC<SendInvitationProps> = ({ agencyId }) => {
         <CardTitle>Invitation</CardTitle>
         <CardDescription>
           An invitation will be sent to the user. Users who already have an
-          invitation sent out to their email, will not receive another
-          invitation.
+          invitation sent out to their email will not receive another.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -90,7 +98,6 @@ const SendInvitation: React.FC<SendInvitationProps> = ({ agencyId }) => {
             className="flex flex-col gap-6"
           >
             <FormField
-              disabled={form.formState.isSubmitting}
               control={form.control}
               name="email"
               render={({ field }) => (
@@ -104,14 +111,13 @@ const SendInvitation: React.FC<SendInvitationProps> = ({ agencyId }) => {
               )}
             />
             <FormField
-              disabled={form.formState.isSubmitting}
               control={form.control}
               name="role"
               render={({ field }) => (
                 <FormItem className="flex-1">
-                  <FormLabel>User role</FormLabel>
+                  <FormLabel>User Role</FormLabel>
                   <Select
-                    onValueChange={(value) => field.onChange(value)}
+                    onValueChange={field.onChange}
                     defaultValue={field.value}
                   >
                     <FormControl>
