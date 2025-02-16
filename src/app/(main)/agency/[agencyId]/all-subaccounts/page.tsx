@@ -22,19 +22,29 @@ import { getAuthUserDetails } from "@/lib/queries";
 import { SubAccount } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
+import { Metadata } from "next";
 
 import React from "react";
 import DeleteButton from "./_components/delete-button";
 import CreateSubaccountButton from "./_components/create-subaccount-btn";
 
-type Props = {
-  params: {
-    agencyId: string;
-  };
-  searchParams: { [key: string]: string | string[] | undefined };
+interface Props {
+  params: { agencyId: string };
+  searchParams: Record<string, string | string[] | undefined>;
+}
+
+export const metadata: Metadata = {
+  title: "All Subaccounts",
+  description: "View and manage all subaccounts",
 };
 
-const AllSubaccountsPage = async ({ params }: Props) => {
+const AllSubaccountsPage = async ({
+  params,
+  searchParams,
+}: {
+  params: { agencyId: string };
+  searchParams: Record<string, string | string[] | undefined>;
+}) => {
   const { agencyId } = params;
   console.log(agencyId);
   const user = await getAuthUserDetails();
