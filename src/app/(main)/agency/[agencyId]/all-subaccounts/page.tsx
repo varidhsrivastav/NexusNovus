@@ -22,21 +22,11 @@ import { getAuthUserDetails } from "@/lib/queries";
 import { SubAccount } from "@prisma/client";
 import Image from "next/image";
 import Link from "next/link";
-
 import React from "react";
 import DeleteButton from "./_components/delete-button";
 import CreateSubaccountButton from "./_components/create-subaccount-btn";
 
-// type Props = {
-//   params: { agencyId: string };
-// };
-
-const AllSubaccountsPage = async ({
-  params,
-}: {
-  params: { agencyId: string };
-}) => {
-  // await params.agencyId;
+const AllSubaccountsPage = async ({ params }: any) => {
   console.log(params.agencyId);
   const user = await getAuthUserDetails();
   if (!user) return;
@@ -93,10 +83,10 @@ const AllSubaccountsPage = async ({
                     <AlertDialogContent>
                       <AlertDialogHeader>
                         <AlertDialogTitle className="text-left">
-                          Are your absolutely sure
+                          Are you absolutely sure
                         </AlertDialogTitle>
                         <AlertDescription className="text-left">
-                          This action cannot be undon. This will delete the
+                          This action cannot be undone. This will delete the
                           subaccount and all data related to the subaccount.
                         </AlertDescription>
                       </AlertDialogHeader>
