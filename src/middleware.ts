@@ -5,13 +5,17 @@ const isPublicRoute = createRouteMatcher([
   "/site",
   "/sign-in(.*)",
   "/sign-up(.*)",
+  "/about",
+  "/api/uploadthing",
 ]);
 
 export default clerkMiddleware(async (auth, request) => {
   try {
     const url = new URL(request.url);
     const searchParams = url.searchParams.toString();
-    const pathWithSearchParams = `${url.pathname}${searchParams ? `?${searchParams}` : ""}`;
+    const pathWithSearchParams = `${url.pathname}${
+      searchParams ? `?${searchParams}` : ""
+    }`;
     const hostname = request.headers.get("host");
 
     if (!hostname) {
@@ -33,6 +37,7 @@ export default clerkMiddleware(async (auth, request) => {
       );
     }
 
+    // Handle subdomain-based rewriting
     const customSubDomain = hostname.includes(rootDomain)
       ? hostname.split(`.${rootDomain}`)[0]
       : null;
@@ -43,13 +48,23 @@ export default clerkMiddleware(async (auth, request) => {
       );
     }
 
+    // Handle sign-in and sign-up redirection
     if (url.pathname === "/sign-in" || url.pathname === "/sign-up") {
       return NextResponse.redirect(new URL("/agency/sign-in", request.url));
     }
 
+    // Ensure / and /site are rewritten correctly
     if (url.pathname === "/" || url.pathname === "/site") {
       return NextResponse.rewrite(new URL("/site", request.url));
     }
+
+    // Allow public routes to continue without authentication
+    if (isPublicRoute(request)) {
+      return NextResponse.next();
+    }
+
+    // Protect all other routes
+    auth().protect();
 
     return NextResponse.rewrite(new URL(pathWithSearchParams, request.url));
   } catch (error) {
