@@ -14,14 +14,7 @@ import Link from "next/link";
 import React from "react";
 import { stripe } from "@/lib/stripe";
 
-type Props = {
-  params: {
-    agencyId: string;
-  };
-  searchParams: { code?: string };
-};
-
-const LaunchPadPage = async ({ params, searchParams }: Props) => {
+const LaunchPadPage = async ({ params, searchParams }: any) => {
   const agencyDetails = await db.agency.findUnique({
     where: { id: params.agencyId },
   });

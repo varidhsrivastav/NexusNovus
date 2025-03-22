@@ -5,14 +5,10 @@ import { currentUser } from "@clerk/nextjs/server";
 import { columns } from "./columns";
 import { Suspense, lazy } from "react";
 
-type Props = {
-  params: { agencyId: string };
-};
-
 // Lazily load the Client Component to avoid rendering issues
 const SendInvitation = lazy(() => import("@/components/forms/send-invitation"));
 
-const TeamPage = async ({ params }: Props) => {
+const TeamPage = async ({ params }: any) => {
   const authUser = await currentUser();
   if (!authUser) return null;
 

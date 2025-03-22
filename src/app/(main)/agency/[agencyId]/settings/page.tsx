@@ -4,11 +4,7 @@ import { db } from "@/lib/db";
 import { currentUser } from "@clerk/nextjs/server";
 import React from "react";
 
-type Props = {
-  params: { agencyId: string };
-};
-
-const SettingsPage = async ({ params }: Props) => {
+const SettingsPage = async ({ params }: any) => {
   const authUser = await currentUser();
   if (!authUser) return null;
 
@@ -19,6 +15,7 @@ const SettingsPage = async ({ params }: Props) => {
   });
 
   if (!userDetails) return null;
+
   const agencyDetails = await db.agency.findUnique({
     where: {
       id: params.agencyId,
