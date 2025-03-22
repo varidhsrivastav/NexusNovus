@@ -15,11 +15,7 @@ import {
 import clsx from "clsx";
 import SubscriptionHelper from "./_components/subscription-helper";
 
-type Props = {
-  params: { agencyId: string };
-};
-
-const page = async ({ params }: Props) => {
+const page = async ({ params }: any) => {
   //CHALLENGE : Create the add on  products
   const addOns = await stripe.products.list({
     ids: addOnProducts.map((product) => product.id),
@@ -50,17 +46,15 @@ const page = async ({ params }: Props) => {
     customer: agencySubscription?.customerId,
   });
 
-  const allCharges = [
-    ...charges.data.map((charge) => ({
-      description: charge.description,
-      id: charge.id,
-      date: `${new Date(charge.created * 1000).toLocaleTimeString()} ${new Date(
-        charge.created * 1000,
-      ).toLocaleDateString()}`,
-      status: "Paid",
-      amount: `₹${charge.amount / 100}`,
-    })),
-  ];
+  const allCharges = charges.data.map((charge) => ({
+    description: charge.description,
+    id: charge.id,
+    date: `${new Date(charge.created * 1000).toLocaleTimeString()} ${new Date(
+      charge.created * 1000,
+    ).toLocaleDateString()}`,
+    status: "Paid",
+    amount: `₹${charge.amount / 100}`,
+  }));
 
   return (
     <>
