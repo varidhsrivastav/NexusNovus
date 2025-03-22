@@ -2,11 +2,7 @@ import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
 import React from "react";
 
-type Props = {
-  params: { subaccountId: string };
-};
-
-const Pipelines = async ({ params }: Props) => {
+const Pipelines = async ({ params }: any) => {
   try {
     // Check if a pipeline already exists
     let pipeline = await db.pipeline.findFirst({
@@ -28,7 +24,7 @@ const Pipelines = async ({ params }: Props) => {
     console.error("🔴 Error in Pipelines component:", error);
     return (
       <p className="text-center text-red-500">
-        Failed to load or create pipeline. Please try again.
+        Failed to load or create a pipeline. Please try again.
       </p>
     );
   }

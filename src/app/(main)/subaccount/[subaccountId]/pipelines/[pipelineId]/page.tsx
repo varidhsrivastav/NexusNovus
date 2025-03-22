@@ -6,24 +6,19 @@ import {
   updateLanesOrder,
   updateTicketsOrder,
 } from "@/lib/queries";
-import { LaneDetail } from "@/lib/types";
 import { redirect } from "next/navigation";
 import React, { Suspense } from "react";
 import PipelineInfoBar from "../_components/pipeline-infobar";
 import PipelineSettings from "../_components/pipeline-settings";
 import PipelineView from "../_components/pipeline-view";
 
-type Props = {
-  params: { subaccountId: string; pipelineId: string };
-};
-
-const PipelinePage = async ({ params }: Props) => {
+const PipelinePage = async ({ params }: any) => {
   try {
     // Fetch all data in parallel for better performance
     const [pipelineDetails, pipelines, lanes] = await Promise.all([
       getPipelineDetails(params.pipelineId),
       db.pipeline.findMany({ where: { subAccountId: params.subaccountId } }),
-      getLanesWithTicketAndTags(params.pipelineId) as Promise<LaneDetail[]>,
+      getLanesWithTicketAndTags(params.pipelineId),
     ]);
 
     // Redirect if pipeline details are missing
@@ -75,7 +70,7 @@ const PipelinePage = async ({ params }: Props) => {
     console.error("🔴 Error loading pipeline:", error);
     return (
       <p className="text-center text-red-500">
-        Failed to load pipeline. Please try again later.
+        Failed to load the pipeline. Please try again later.
       </p>
     );
   }
