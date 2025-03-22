@@ -64,6 +64,7 @@ export default clerkMiddleware(async (auth, request) => {
     }
 
     // Protect all other routes
+    // @ts-ignore
     auth().protect();
 
     return NextResponse.rewrite(new URL(pathWithSearchParams, request.url));
