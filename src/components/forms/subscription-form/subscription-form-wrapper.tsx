@@ -75,6 +75,7 @@ const SubscriptionFormWrapper = ({ customerId, planExists }: Props) => {
   return (
     <div className="border-none transition-all">
       <div className="flex flex-col gap-4">
+        {/* @ts-ignore */}
         {data.plans?.plans.map((price) => (
           <Card
             onClick={() => setSelectedPriceId(price.id as Plan)}
@@ -102,7 +103,6 @@ const SubscriptionFormWrapper = ({ customerId, planExists }: Props) => {
             )}
           </Card>
         ))}
-
         {options.clientSecret && !planExists && (
           <>
             <h1 className="text-xl">Payment Method</h1>
@@ -111,7 +111,6 @@ const SubscriptionFormWrapper = ({ customerId, planExists }: Props) => {
             </Elements>
           </>
         )}
-
         {!options.clientSecret && selectedPriceId && (
           <div className="flex items-center justify-center w-full h-40">
             <Loading />
