@@ -5,13 +5,10 @@ import { db } from "@/lib/db";
 import { currentUser } from "@clerk/nextjs/server";
 import React from "react";
 
-type Props = {
-  params: { subaccountId: string };
-};
-
-const SubaccountSettingPage = async ({ params }: Props) => {
+const SubaccountSettingPage = async ({ params }: any) => {
   const authUser = await currentUser();
   if (!authUser) return;
+
   const userDetails = await db.user.findUnique({
     where: {
       email: authUser.emailAddresses[0].emailAddress,

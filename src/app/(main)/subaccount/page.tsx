@@ -3,12 +3,7 @@ import { getAuthUserDetails, verifyAndAcceptInvitation } from "@/lib/queries";
 import { redirect } from "next/navigation";
 import React from "react";
 
-// this come from stripe
-type Props = {
-  searchParams: { state: string; code: string };
-};
-
-const SubAccountMainPage = async ({ searchParams }: Props) => {
+const SubAccountMainPage = async ({ searchParams }: any) => {
   const agencyId = await verifyAndAcceptInvitation();
 
   if (!agencyId) {
@@ -23,8 +18,7 @@ const SubAccountMainPage = async ({ searchParams }: Props) => {
   );
 
   if (searchParams.state) {
-    const statePath = searchParams.state.split("___")[0];
-    const stateSubaccountId = searchParams.state.split("___")[1];
+    const [statePath, stateSubaccountId] = searchParams.state.split("___");
     if (!stateSubaccountId) return <Unauthorized />;
     return redirect(
       `/subaccount/${stateSubaccountId}/${statePath}?code=${searchParams.code}`,

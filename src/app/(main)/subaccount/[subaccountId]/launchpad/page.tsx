@@ -15,15 +15,26 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-type Props = {
-  searchParams: {
-    state: string;
-    code: string;
-  };
-  params: { subaccountId: string };
+const processStripeConnection = async (code: string, subaccountId: string) => {
+  try {
+    const response = await stripe.oauth.token({
+      grant_type: "authorization_code",
+      code,
+    });
+
+    await db.subAccount.update({
+      where: { id: subaccountId },
+      data: { connectAccountId: response.stripe_user_id },
+    });
+
+    return true;
+  } catch (error) {
+    console.error("🔴 Could not connect Stripe account:", error);
+    return false;
+  }
 };
 
-const LaunchPad = async ({ params, searchParams }: Props) => {
+const LaunchPad = async ({ params, searchParams }: any) => {
   const subaccountDetails = await db.subAccount.findUnique({
     where: {
       id: params.subaccountId,
@@ -31,7 +42,7 @@ const LaunchPad = async ({ params, searchParams }: Props) => {
   });
 
   if (!subaccountDetails) {
-    return;
+    return null;
   }
 
   const allDetailsExist =
@@ -49,39 +60,31 @@ const LaunchPad = async ({ params, searchParams }: Props) => {
     `launchpad___${subaccountDetails.id}`,
   );
 
-  let connectedStripeAccount = false;
+  let connectedStripeAccount = subaccountDetails.connectAccountId
+    ? true
+    : false;
 
-  if (searchParams.code) {
-    if (!subaccountDetails.connectAccountId) {
-      try {
-        const response = await stripe.oauth.token({
-          grant_type: "authorization_code",
-          code: searchParams.code,
-        });
-        await db.subAccount.update({
-          where: { id: params.subaccountId },
-          data: { connectAccountId: response.stripe_user_id },
-        });
-        connectedStripeAccount = true;
-      } catch (error) {
-        console.log("🔴 Could not connect stripe account", error);
-      }
-    }
+  if (searchParams?.code && !connectedStripeAccount) {
+    connectedStripeAccount = await processStripeConnection(
+      searchParams.code,
+      params.subaccountId,
+    );
   }
 
   return (
     <BlurPage>
       <div className="flex flex-col justify-center items-center">
         <div className="w-full h-full max-w-[800px]">
-          <Card className="border-none ">
+          <Card className="border-none">
             <CardHeader>
-              <CardTitle>Lets get started!</CardTitle>
+              <CardTitle>Let's get started!</CardTitle>
               <CardDescription>
-                Follow the steps below to get your account setup correctly.
+                Follow the steps below to get your account set up correctly.
               </CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col gap-4">
-              <div className="flex justify-between items-center w-full h-20 border p-4 rounded-lg ">
+              {/* Step 1: Save Shortcut */}
+              <div className="flex justify-between items-center w-full h-20 border p-4 rounded-lg">
                 <div className="flex items-center gap-4">
                   <Image
                     src="/appstore.png"
@@ -90,29 +93,30 @@ const LaunchPad = async ({ params, searchParams }: Props) => {
                     width={80}
                     className="rounded-md object-contain"
                   />
-                  <p>Save the website as a shortcut on your mobile devide</p>
+                  <p>Save the website as a shortcut on your mobile device</p>
                 </div>
                 <Button>Start</Button>
               </div>
+
+              {/* Step 2: Connect Stripe */}
               <div className="flex justify-between items-center w-full h-20 border p-4 rounded-lg">
                 <div className="flex items-center gap-4">
                   <Image
                     src="/stripelogo.png"
-                    alt="App logo"
+                    alt="Stripe logo"
                     height={80}
                     width={80}
-                    className="rounded-md object-contain "
+                    className="rounded-md object-contain"
                   />
                   <p>
-                    Connect your stripe account to accept payments. Stripe is
+                    Connect your Stripe account to accept payments. Stripe is
                     used to run payouts.
                   </p>
                 </div>
-                {subaccountDetails.connectAccountId ||
-                connectedStripeAccount ? (
+                {connectedStripeAccount ? (
                   <CheckCircleIcon
                     size={50}
-                    className=" text-primary p-2 flex-shrink-0"
+                    className="text-primary p-2 flex-shrink-0"
                   />
                 ) : (
                   <Link
@@ -123,11 +127,13 @@ const LaunchPad = async ({ params, searchParams }: Props) => {
                   </Link>
                 )}
               </div>
+
+              {/* Step 3: Fill Business Details */}
               <div className="flex justify-between items-center w-full h-20 border p-4 rounded-lg">
                 <div className="flex items-center gap-4">
                   <Image
                     src={subaccountDetails.subAccountLogo}
-                    alt="App logo"
+                    alt="Business Logo"
                     height={80}
                     width={80}
                     className="rounded-md object-contain p-4"
@@ -137,7 +143,7 @@ const LaunchPad = async ({ params, searchParams }: Props) => {
                 {allDetailsExist ? (
                   <CheckCircleIcon
                     size={50}
-                    className=" text-primary p-2 flex-shrink-0"
+                    className="text-primary p-2 flex-shrink-0"
                   />
                 ) : (
                   <Link

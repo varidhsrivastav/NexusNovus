@@ -11,12 +11,7 @@ import { Role } from "@prisma/client";
 import { redirect } from "next/navigation";
 import React from "react";
 
-type Props = {
-  children: React.ReactNode;
-  params: { subaccountId: string };
-};
-
-const SubaccountLayout = async ({ children, params }: Props) => {
+const SubaccountLayout = async ({ children, params }: any) => {
   const agencyId = await verifyAndAcceptInvitation();
   if (!agencyId) return <Unauthorized />;
   const user = await currentUser();
