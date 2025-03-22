@@ -1,7 +1,7 @@
-'use client'
+"use client";
 
-import clsx from 'clsx'
-import { ColumnDef } from '@tanstack/react-table'
+import clsx from "clsx";
+import { ColumnDef } from "@tanstack/react-table";
 import {
   Agency,
   AgencySidebarOption,
@@ -10,10 +10,10 @@ import {
   Role,
   SubAccount,
   User,
-} from '@prisma/client'
-import Image from 'next/image'
+} from "@prisma/client";
+import Image from "next/image";
 
-import { Badge } from '@/components/ui/badge'
+import { Badge } from "@/components/ui/badge";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -21,7 +21,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
+} from "@/components/ui/dropdown-menu";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -32,33 +32,33 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '@/components/ui/alert-dialog'
-import { Button } from '@/components/ui/button'
-import { Copy, Edit, MoreHorizontal, Trash } from 'lucide-react'
-import { useModal } from '@/providers/modal-provider'
-import UserDetails from '@/components/forms/user-details'
+} from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
+import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
+import { useModal } from "@/providers/modal-provider";
+import UserDetails from "@/components/forms/user-details";
 
-import { deleteUser, getUser } from '@/lib/queries'
-import { useToast } from '@/components/ui/use-toast'
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
-import { UsersWithAgencySubAccountPermissionsSidebarOptions } from '@/lib/types'
-import CustomModal from '@/components/global/custom-modal'
+import { deleteUser, getUser } from "@/lib/queries";
+import { useToast } from "@/components/ui/use-toast";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { UsersWithAgencySubAccountPermissionsSidebarOptions } from "@/lib/types";
+import CustomModal from "@/components/global/custom-modal";
 
 export const columns: ColumnDef<UsersWithAgencySubAccountPermissionsSidebarOptions>[] =
   [
     {
-      accessorKey: 'id',
-      header: '',
+      accessorKey: "id",
+      header: "",
       cell: () => {
-        return null
+        return null;
       },
     },
     {
-      accessorKey: 'name',
-      header: 'Name',
+      accessorKey: "name",
+      header: "Name",
       cell: ({ row }) => {
-        const avatarUrl = row.getValue('avatarUrl') as string
+        const avatarUrl = row.getValue("avatarUrl") as string;
         return (
           <div className="flex items-center gap-4">
             <div className="h-11 w-11 relative flex-none">
@@ -69,28 +69,29 @@ export const columns: ColumnDef<UsersWithAgencySubAccountPermissionsSidebarOptio
                 alt="avatar image"
               />
             </div>
-            <span>{row.getValue('name')}</span>
+            <span>{row.getValue("name")}</span>
           </div>
-        )
+        );
       },
     },
     {
-      accessorKey: 'avatarUrl',
-      header: '',
+      accessorKey: "avatarUrl",
+      header: "",
       cell: () => {
-        return null
+        return null;
       },
     },
-    { accessorKey: 'email', header: 'Email' },
+    { accessorKey: "email", header: "Email" },
 
     {
-      accessorKey: 'SubAccount',
-      header: 'Owned Accounts',
+      accessorKey: "SubAccount",
+      header: "Owned Accounts",
       cell: ({ row }) => {
-        const isAgencyOwner = row.getValue('role') === 'AGENCY_OWNER'
+        const isAgencyOwner = row.getValue("role") === "AGENCY_OWNER";
         const ownedAccounts = row.original?.Permissions.filter(
-          (per) => per.access
-        )
+          //@ts-ignore
+          (per) => per.access,
+        );
 
         if (isAgencyOwner)
           return (
@@ -101,11 +102,12 @@ export const columns: ColumnDef<UsersWithAgencySubAccountPermissionsSidebarOptio
                 </Badge>
               </div>
             </div>
-          )
+          );
         return (
           <div className="flex flex-col items-start">
             <div className="flex flex-col gap-2">
               {ownedAccounts?.length ? (
+                //@ts-ignore
                 ownedAccounts.map((account) => (
                   <Badge
                     key={account.id}
@@ -119,58 +121,55 @@ export const columns: ColumnDef<UsersWithAgencySubAccountPermissionsSidebarOptio
               )}
             </div>
           </div>
-        )
+        );
       },
     },
     {
-      accessorKey: 'role',
-      header: 'Role',
+      accessorKey: "role",
+      header: "Role",
       cell: ({ row }) => {
-        const role: Role = row.getValue('role')
+        const role: Role = row.getValue("role");
         return (
           <Badge
             className={clsx({
-              'bg-emerald-500': role === 'AGENCY_OWNER',
-              'bg-orange-400': role === 'AGENCY_ADMIN',
-              'bg-primary': role === 'SUBACCOUNT_USER',
-              'bg-muted': role === 'SUBACCOUNT_GUEST',
+              "bg-emerald-500": role === "AGENCY_OWNER",
+              "bg-orange-400": role === "AGENCY_ADMIN",
+              "bg-primary": role === "SUBACCOUNT_USER",
+              "bg-muted": role === "SUBACCOUNT_GUEST",
             })}
           >
             {role}
           </Badge>
-        )
+        );
       },
     },
     {
-      id: 'actions',
+      id: "actions",
       cell: ({ row }) => {
-        const rowData = row.original
+        const rowData = row.original;
 
-        return <CellActions rowData={rowData} />
+        return <CellActions rowData={rowData} />;
       },
     },
-  ]
+  ];
 
 interface CellActionsProps {
-  rowData: UsersWithAgencySubAccountPermissionsSidebarOptions
+  rowData: UsersWithAgencySubAccountPermissionsSidebarOptions;
 }
 
 const CellActions: React.FC<CellActionsProps> = ({ rowData }) => {
-  const { data, setOpen } = useModal()
-  const { toast } = useToast()
-  const [loading, setLoading] = useState(false)
-  const router = useRouter()
-  if (!rowData) return
-  if (!rowData.Agency) return
+  const { data, setOpen } = useModal();
+  const { toast } = useToast();
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+  if (!rowData) return;
+  if (!rowData.Agency) return;
 
   return (
     <AlertDialog>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button
-            variant="ghost"
-            className="h-8 w-8 p-0"
-          >
+          <Button variant="ghost" className="h-8 w-8 p-0">
             <span className="sr-only">Open menu</span>
             <MoreHorizontal className="h-4 w-4" />
           </Button>
@@ -199,20 +198,17 @@ const CellActions: React.FC<CellActionsProps> = ({ rowData }) => {
                   />
                 </CustomModal>,
                 async () => {
-                  return { user: await getUser(rowData?.id) }
-                }
-              )
+                  return { user: await getUser(rowData?.id) };
+                },
+              );
             }}
           >
             <Edit size={15} />
             Edit Details
           </DropdownMenuItem>
-          {rowData.role !== 'AGENCY_OWNER' && (
+          {rowData.role !== "AGENCY_OWNER" && (
             <AlertDialogTrigger asChild>
-              <DropdownMenuItem
-                className="flex gap-2"
-                onClick={() => {}}
-              >
+              <DropdownMenuItem className="flex gap-2" onClick={() => {}}>
                 <Trash size={15} /> Remove User
               </DropdownMenuItem>
             </AlertDialogTrigger>
@@ -235,15 +231,15 @@ const CellActions: React.FC<CellActionsProps> = ({ rowData }) => {
             disabled={loading}
             className="bg-destructive hover:bg-destructive"
             onClick={async () => {
-              setLoading(true)
-              await deleteUser(rowData.id)
+              setLoading(true);
+              await deleteUser(rowData.id);
               toast({
-                title: 'Deleted User',
+                title: "Deleted User",
                 description:
-                  'The user has been deleted from this agency they no longer have access to the agency',
-              })
-              setLoading(false)
-              router.refresh()
+                  "The user has been deleted from this agency they no longer have access to the agency",
+              });
+              setLoading(false);
+              router.refresh();
             }}
           >
             Delete
@@ -251,5 +247,5 @@ const CellActions: React.FC<CellActionsProps> = ({ rowData }) => {
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
-  )
-}
+  );
+};

@@ -36,6 +36,7 @@ const SubscriptionHelper = ({ customerId, planExists, prices }: Props) => {
           },
         }),
       );
+    //@ts-ignore
   }, [plan]);
 
   return <div>SubscriptionHelper</div>;

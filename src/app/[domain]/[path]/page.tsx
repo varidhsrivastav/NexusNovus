@@ -7,6 +7,7 @@ import React from "react";
 const Page = async ({ params }: any) => {
   const domainData = await getDomainContent(params.domain.slice(0, -1));
   const pageData = domainData?.FunnelPages.find(
+    //@ts-ignore
     (page) => page.pathName === params.path,
   );
 

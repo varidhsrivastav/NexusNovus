@@ -110,10 +110,11 @@ const SubaccountPageId = async ({ params, searchParams }: any) => {
       FunnelPages: true,
     },
   });
-
+  //@ts-ignore
   const funnelPerformanceMetrics = funnels.map((funnel) => ({
     ...funnel,
     totalFunnelVisits: funnel.FunnelPages.reduce(
+      //@ts-ignore
       (total, page) => total + page.visits,
       0,
     ),

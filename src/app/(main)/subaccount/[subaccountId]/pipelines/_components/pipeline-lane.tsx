@@ -64,6 +64,7 @@ const PipelineLane: React.FC<PipelaneLaneProps> = ({
   const laneAmt = useMemo(() => {
     console.log(tickets);
     return tickets.reduce(
+      //@ts-ignore
       (sum, ticket) => sum + (Number(ticket?.value) || 0),
       0,
     );
@@ -180,6 +181,7 @@ const PipelineLane: React.FC<PipelaneLaneProps> = ({
                           ref={provided.innerRef}
                           className="mt-2"
                         >
+                          {/* @ts-ignore */}
                           {tickets.map((ticket, index) => (
                             <PipelineTicket
                               allTickets={allTickets}

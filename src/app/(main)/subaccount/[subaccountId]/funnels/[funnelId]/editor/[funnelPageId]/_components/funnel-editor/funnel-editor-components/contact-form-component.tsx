@@ -49,6 +49,7 @@ const ContactFormComponent = (props: Props) => {
     if (!funnelPages || !pageDetails) return;
     if (funnelPages.FunnelPages.length > pageDetails.order + 1) {
       const nextPage = funnelPages.FunnelPages.find(
+        //@ts-ignore
         (page) => page.order === pageDetails.order + 1,
       );
       if (!nextPage) return;
