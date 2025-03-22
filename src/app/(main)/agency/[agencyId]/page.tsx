@@ -22,12 +22,7 @@ import {
 import Link from "next/link";
 import React from "react";
 
-const Page = async ({
-  params,
-}: {
-  params: { agencyId: string };
-  searchParams: { code: string };
-}) => {
+const Page = async ({ params, searchParams }: any) => {
   let currency = "INR";
   let sessions;
   let totalClosedSessions;
@@ -118,7 +113,7 @@ const Page = async ({
         </div>
       )}
       <h1 className="text-4xl">Dashboard</h1>
-      <Separator className=" my-6" />
+      <Separator className="my-6" />
       <div className="flex flex-col gap-4 pb-6">
         <div className="flex gap-4 flex-col xl:!flex-row">
           <Card className="flex-1 relative">
@@ -224,15 +219,6 @@ const Page = async ({
                         <div className="flex gap-2">
                           <ShoppingCart className="text-rose-700" />
                           {sessions.length}
-                        </div>
-                      </div>
-                    )}
-                    {totalClosedSessions && (
-                      <div className="felx flex-col">
-                        Won Carts
-                        <div className="flex gap-2">
-                          <ShoppingCart className="text-emerald-700" />
-                          {totalClosedSessions.length}
                         </div>
                       </div>
                     )}
