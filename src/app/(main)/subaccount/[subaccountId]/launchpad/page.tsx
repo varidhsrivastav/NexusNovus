@@ -77,7 +77,7 @@ const LaunchPad = async ({ params, searchParams }: any) => {
         <div className="w-full h-full max-w-[800px]">
           <Card className="border-none">
             <CardHeader>
-              <CardTitle>Let's get started!</CardTitle>
+              <CardTitle>Let&apos;s get started!</CardTitle>
               <CardDescription>
                 Follow the steps below to get your account set up correctly.
               </CardDescription>
