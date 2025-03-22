@@ -10,25 +10,15 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { db } from "@/lib/db";
-import { Contact, SubAccount, Ticket } from "@prisma/client";
 import { format } from "date-fns/format";
 import React from "react";
 import CraeteContactButton from "./_components/create-contact-btn";
 
-type Props = {
-  params: { subaccountId: string };
-};
-
-const ContactPage = async ({ params }: Props) => {
-  type SubAccountWithContacts = SubAccount & {
-    Contact: (Contact & { Ticket: Ticket[] })[];
-  };
-
-  const contacts = (await db.subAccount.findUnique({
+const ContactPage = async ({ params }: any) => {
+  const contacts = await db.subAccount.findUnique({
     where: {
       id: params.subaccountId,
     },
-
     include: {
       Contact: {
         include: {
@@ -43,11 +33,13 @@ const ContactPage = async ({ params }: Props) => {
         },
       },
     },
-  })) as SubAccountWithContacts;
+  });
+
+  if (!contacts) return null;
 
   const allContacts = contacts.Contact;
 
-  const formatTotal = (tickets: Ticket[]) => {
+  const formatTotal = (tickets: any[]) => {
     if (!tickets || !tickets.length) return "₹0.00";
     const amt = new Intl.NumberFormat(undefined, {
       style: "currency",
@@ -61,6 +53,7 @@ const ContactPage = async ({ params }: Props) => {
 
     return amt.format(laneAmt);
   };
+
   return (
     <BlurPage>
       <h1 className="text-4xl p-4">Contacts</h1>
@@ -76,7 +69,7 @@ const ContactPage = async ({ params }: Props) => {
           </TableRow>
         </TableHeader>
         <TableBody className="font-medium truncate">
-          {allContacts.map((contact) => (
+          {allContacts.map((contact: any) => (
             <TableRow key={contact.id}>
               <TableCell>
                 <Avatar>
