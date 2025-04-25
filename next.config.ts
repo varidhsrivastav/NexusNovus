@@ -9,6 +9,7 @@ const nextConfig: NextConfig = {
       'img.clerk.com',
       'subdomain',
       'files.stripe.com',
+      'res.cloudinary.com'
     ],
   },
   reactStrictMode: false,

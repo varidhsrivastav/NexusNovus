@@ -39,9 +39,12 @@ const PipelineValue = ({ subaccountId }: Props) => {
     if (pipelines.length) {
       return (
         pipelines
+        // @ts-ignore
           .find((pipeline) => pipeline.id === selectedPipelineId)
+          // @ts-ignore
           ?.Lane?.reduce((totalLanes, lane, currentLaneIndex, array) => {
             const laneTicketsTotal = lane.Tickets.reduce(
+              // @ts-ignore
               (totalTickets, ticket) => totalTickets + Number(ticket?.value),
               0,
             );
@@ -72,12 +75,12 @@ const PipelineValue = ({ subaccountId }: Props) => {
         <div className="flex items-center justify-between">
           <div>
             <p className="text-xs text-muted-foreground">
-              Closed ${pipelineClosedValue}
+              Closed ₹ {pipelineClosedValue}
             </p>
           </div>
           <div>
             <p className="text-xs text-muted-foreground">
-              Total ${totalPipelineValue + pipelineClosedValue}
+              Total ₹{totalPipelineValue + pipelineClosedValue}
             </p>
           </div>
         </div>
@@ -98,6 +101,7 @@ const PipelineValue = ({ subaccountId }: Props) => {
           <SelectContent>
             <SelectGroup>
               <SelectLabel>Pipelines</SelectLabel>
+              {/* @ts-ignore */}
               {pipelines.map((pipeline) => (
                 <SelectItem value={pipeline.id} key={pipeline.id}>
                   {pipeline.name}

@@ -62,7 +62,9 @@ const PipelineTicket = ({
   const { setOpen, data } = useModal();
 
   const editNewTicket = (ticket: TicketWithTags[0]) => {
+    // @ts-ignore
     setAllTickets((tickets) =>
+      // @ts-ignore
       allTickets.map((t) => {
         if (t.id === ticket.id) {
           return ticket;
@@ -89,6 +91,7 @@ const PipelineTicket = ({
 
   const handleDeleteTicket = async () => {
     try {
+      //@ts-ignore
       setAllTickets((tickets) => tickets.filter((t) => t.id !== ticket.id));
       const response = await deleteTicket(ticket.id);
       toast({
@@ -148,6 +151,7 @@ const PipelineTicket = ({
                       {new Date().toLocaleDateString()}
                     </span>
                     <div className="flex items-center flex-wrap gap-2">
+                      {/* @ts-ignore */}
                       {ticket.Tags.map((tag) => (
                         <TagComponent
                           key={tag.id}
@@ -222,7 +226,7 @@ const PipelineTicket = ({
                       {!!ticket.value &&
                         new Intl.NumberFormat(undefined, {
                           style: "currency",
-                          currency: "USD",
+                          currency: "INR",
                         }).format(+ticket.value)}
                     </span>
                   </CardFooter>

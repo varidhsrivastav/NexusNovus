@@ -34,7 +34,7 @@ export default async function Home() {
         </div>
         <div className="flex justify-center items-center relative md:mt-[-70px]">
           <Image
-            src={"/assets/preview.png"}
+            src={"https://res.cloudinary.com/dsalsyu0z/image/upload/v1742280156/Screenshot_2025-03-18_12_06_31_mnjgvw.png"}
             alt="banner image"
             height={1200}
             width={1200}
@@ -76,7 +76,7 @@ export default async function Home() {
               </CardHeader>
               <CardContent>
                 <span className="text-4xl font-bold">
-                  {card.unit_amount && card.unit_amount / 100}
+                ₹  {card.unit_amount && card.unit_amount / 100}
                 </span>
                 <span className="text-muted-foreground">
                   <span>/ {card.recurring?.interval}</span>
@@ -115,12 +115,12 @@ export default async function Home() {
                   "text-muted-foreground": true,
                 })}
               >
-                {pricingCards[0].title}
+               {pricingCards[0].title}
               </CardTitle>
               <CardDescription>{pricingCards[0].description}</CardDescription>
             </CardHeader>
             <CardContent>
-              <span className="text-4xl font-bold">$0</span>
+              <span className="text-4xl font-bold">₹ 0</span>
               <span>/ month</span>
             </CardContent>
             <CardFooter className="flex flex-col  items-start gap-4 ">

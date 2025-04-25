@@ -75,6 +75,7 @@ const SubscriptionFormWrapper = ({ customerId, planExists }: Props) => {
   return (
     <div className="border-none transition-all">
       <div className="flex flex-col gap-4">
+        {/* @ts-ignore */}
         {data.plans?.plans.map((price) => (
           <Card
             onClick={() => setSelectedPriceId(price.id as Plan)}
@@ -85,7 +86,7 @@ const SubscriptionFormWrapper = ({ customerId, planExists }: Props) => {
           >
             <CardHeader>
               <CardTitle>
-                ${price.unit_amount ? price.unit_amount / 100 : "0"}
+              ₹{price.unit_amount ? price.unit_amount / 100 : "0"}
                 <p className="text-sm text-muted-foreground">
                   {price.nickname}
                 </p>

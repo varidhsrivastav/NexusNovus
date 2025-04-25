@@ -19,6 +19,7 @@ const SubAccountMainPage = async ({ searchParams }: Props) => {
   if (!user) return;
 
   const getFirstSubaccountWithAccess = user.Permissions.find(
+    // @ts-ignore
     (permission) => permission.access === true,
   );
 

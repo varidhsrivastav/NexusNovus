@@ -9,7 +9,7 @@ import FunnelEditor from "../(main)/subaccount/[subaccountId]/funnels/[funnelId]
 const Page = async ({ params }: { params: { domain: string } }) => {
   const domainData = await getDomainContent(params.domain.slice(0, -1));
   if (!domainData) return notFound();
-
+// @ts-ignore
   const pageData = domainData.FunnelPages.find((page) => !page.pathName);
 
   if (!pageData) return notFound();

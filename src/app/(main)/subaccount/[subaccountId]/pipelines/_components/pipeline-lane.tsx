@@ -58,12 +58,13 @@ const PipelineLane: React.FC<PipelaneLaneProps> = ({
 
   const amt = new Intl.NumberFormat(undefined, {
     style: "currency",
-    currency: "USD",
+    currency: "INR",
   });
 
   const laneAmt = useMemo(() => {
     console.log(tickets);
     return tickets.reduce(
+      // @ts-ignore
       (sum, ticket) => sum + (Number(ticket?.value) || 0),
       0,
     );
@@ -180,6 +181,7 @@ const PipelineLane: React.FC<PipelaneLaneProps> = ({
                           ref={provided.innerRef}
                           className="mt-2"
                         >
+                          {/* @ts-ignore */}
                           {tickets.map((ticket, index) => (
                             <PipelineTicket
                               allTickets={allTickets}

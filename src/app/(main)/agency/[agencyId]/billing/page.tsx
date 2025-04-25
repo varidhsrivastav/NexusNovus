@@ -58,7 +58,7 @@ const page = async ({ params }: Props) => {
         charge.created * 1000,
       ).toLocaleDateString()}`,
       status: "Paid",
-      amount: `$${charge.amount / 100}`,
+      amount: `₹${charge.amount / 100}`,
     })),
   ];
 
@@ -79,8 +79,8 @@ const page = async ({ params }: Props) => {
           customerId={agencySubscription?.customerId || ""}
           amt={
             agencySubscription?.Subscription?.active === true
-              ? currentPlanDetails?.price || "$0"
-              : "$0"
+              ? currentPlanDetails?.price || "₹ 0"
+              : "₹ 0"
           }
           buttonCta={
             agencySubscription?.Subscription?.active === true
@@ -88,7 +88,7 @@ const page = async ({ params }: Props) => {
               : "Get Started"
           }
           highlightDescription="Want to modify your plan? You can do this here. If you have
-          further question contact support@plura-app.com"
+          further question contact support@nexusnovus.com"
           highlightTitle="Plan Options"
           description={
             agencySubscription?.Subscription?.active === true
@@ -120,8 +120,8 @@ const page = async ({ params }: Props) => {
               //@ts-ignore
               addOn.default_price?.unit_amount
                 ? //@ts-ignore
-                  `$${addOn.default_price.unit_amount / 100}`
-                : "$0"
+                  `₹ ${addOn.default_price.unit_amount / 100}`
+                : "₹ 0"
             }
             buttonCta="Subscribe"
             description="Dedicated support line & teams channel for support"
