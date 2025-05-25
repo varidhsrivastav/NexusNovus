@@ -1,39 +1,107 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Swafinix Project Development
 
+## Project Overview
+
+Welcome to the Swafinix project! This document provides an overview of the project structure, development guidelines, and best practices for contributing to this repository.
+
+## Project Structure
+
+The project follows a well-organized directory structure under the `src/` folder to maintain clarity and scalability.
+
+```
+src/
+├── app/             # All frontend routes
+├── config/          # Configuration files and environment settings
+├── components/      # Shared UI components
+
+├── context/         # React context API for state management
+├── hooks/           # Custom React hooks
+├── server-actions/  # Server-side actions using Next.js
+├── vendor/          # Third-party API integrations
+```
+use ├── _components/     # for Individual components for specific modules
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Ensure you have the following installed on your system:
+
+- Node.js (LTS version recommended)
+- Yarn or npm or bun or pnpm
+
+### Installation
+
+Clone the repository and install dependencies:
+
+```sh
+$ git clone https://github.com/shadow007213/Swafinix_WEB.git
+$ cd Swafinix_WEB
+$ npm install  # or yarn install or bun install or pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Running the Development Server
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Start the Next.js development server:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```sh
+$ npm run dev  # or yarn dev or bun dev or pnpm dev
+```
 
-## Learn More
+## SOPs for Writing Clean Code
 
-To learn more about Next.js, take a look at the following resources:
+To maintain high-quality code, follow these standard operating procedures:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 1. Component Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Place reusable components in the `components/` folder.
+- Place individual components related to a specific feature/module in `_components/`.
 
-## Deploy on Vercel
+### 2. Folder and File Naming Conventions
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Use **camelCase** for filenames (`customHook.js`).
+- Use **PascalCase** for React components (`ButtonComponent.js`).
+- Use **kebab-case** for route names (`dashboard-settings`).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# NexusNovus
-# NexusNovus
-# NexusNovus
+### 3. Code Formatting
+
+- Use Prettier for code formatting.
+- Maintain proper indentation and spacing.
+- Follow the ESLint rules configured in the project.
+- Do not override default ts config rules.
+- Use consistent naming conventions for variables, functions, and classes.
+- Use meaningful variable names and avoid abbreviations.
+- Use descriptive comments to explain complex logic.
+
+### 4. State Management
+
+- Use the `context/` folder for React Context API.
+- Use custom hooks (`hooks/` folder) for reusable state logic.
+
+### 5. API Integration
+
+- All third-party API integrations should be placed in the `vendor/` folder.
+- Use environment variables for API keys and sensitive data.
+
+### 6. Server Actions
+
+- Keep all server actions inside `server-actions/`.
+- Follow proper error handling and async/await best practices.
+
+### 7. Commit Message Guidelines
+
+- Use meaningful commit messages.
+- Follow this format:
+  ```sh
+  feat: add new login component
+  fix: resolve bug in authentication
+  refactor: improve dashboard UI
+  ```
+
+## Contribution Guidelines
+
+- Create a feature branch before working on new changes.
+- Always raise a pull request with a detailed description of changes.
+- Follow coding standards mentioned in this document.
+- Sharing of env variables should be done using a secure method such as environment variables or a secrets manager.
+- Ensure that all secrets are stored securely and not exposed in the codebase.
+# Swafinix_WEB
