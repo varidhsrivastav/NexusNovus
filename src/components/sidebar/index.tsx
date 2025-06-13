@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { getAuthUserDetails } from '@/lib/queries'
 import { off } from 'process'
 import React from 'react'

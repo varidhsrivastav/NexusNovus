@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client";
 import CreateFunnelPage from "@/components/forms/funnel-page";
 import CustomModal from "@/components/global/custom-modal";

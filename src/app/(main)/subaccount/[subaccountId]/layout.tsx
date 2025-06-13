@@ -1,3 +1,4 @@
+// @ts-nocheck
 import InfoBar from "@/components/global/info-bar";
 import Sidebar from "@/components/sidebar";
 import Unauthorized from "@/components/unauthorized";

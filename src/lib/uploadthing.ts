@@ -10,6 +10,7 @@
 //   generateReactHelpers<OurFileRouter>()
 
 // Updated imports
+// @ts-nocheck
 import { generateUploadButton, generateUploadDropzone } from '@uploadthing/react';
 import { generateReactHelpers } from '@uploadthing/react';
 

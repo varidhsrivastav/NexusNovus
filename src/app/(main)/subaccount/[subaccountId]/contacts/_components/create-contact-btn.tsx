@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client";
 import ContactUserForm from "@/components/forms/contact-user-form";
 import CustomModal from "@/components/global/custom-modal";

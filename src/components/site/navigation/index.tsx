@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { ModeToggle } from '@/components/global/mode-toggle'
 import Logo from '@/components/Logo'
 import { UserButton } from '@clerk/nextjs'

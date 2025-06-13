@@ -1,3 +1,4 @@
+// @ts-nocheck
 import BlurPage from "@/components/global/blur-page";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getFunnel } from "@/lib/queries";

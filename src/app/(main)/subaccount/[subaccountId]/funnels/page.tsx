@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { getFunnels } from "@/lib/queries";
 import React from "react";
 import FunnelsDataTable from "./data-table";

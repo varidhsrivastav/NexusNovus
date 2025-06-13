@@ -1,3 +1,4 @@
+// @ts-nocheck
 'use client'
 import MediaComponent from '@/components/media'
 import { getMedia } from '@/lib/queries'

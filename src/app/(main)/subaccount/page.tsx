@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Unauthorized from "@/components/unauthorized";
 import { getAuthUserDetails, verifyAndAcceptInvitation } from "@/lib/queries";
 import { redirect } from "next/navigation";

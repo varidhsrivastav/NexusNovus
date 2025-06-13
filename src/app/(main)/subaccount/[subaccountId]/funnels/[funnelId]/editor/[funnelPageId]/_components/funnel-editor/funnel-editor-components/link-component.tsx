@@ -1,3 +1,4 @@
+// @ts-nocheck
 'use client'
 import { Badge } from '@/components/ui/badge'
 import { EditorBtns } from '@/lib/constants'

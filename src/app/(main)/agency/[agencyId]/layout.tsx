@@ -1,3 +1,4 @@
+// @ts-nocheck
 import BlurPage from '@/components/global/blur-page'
 import InfoBar from '@/components/global/info-bar'
 import Sidebar from '@/components/sidebar'

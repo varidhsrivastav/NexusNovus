@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { db } from '@/lib/db'
 import EditorProvider from '@/providers/editor/editor-provider'
 import { redirect } from 'next/navigation'

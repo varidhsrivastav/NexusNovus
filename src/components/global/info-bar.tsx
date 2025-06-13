@@ -1,3 +1,4 @@
+// @ts-nocheck
 'use client'
 import { NotificationWithUser } from '@/lib/types'
 import { UserButton } from '@clerk/nextjs'

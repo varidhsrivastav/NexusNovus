@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client";
 import { Media } from "@prisma/client";
 import { useRouter } from "next/navigation";

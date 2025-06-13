@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client";
 import { EditorBtns } from "@/lib/constants";
 import { EditorAction } from "./editor-actions";

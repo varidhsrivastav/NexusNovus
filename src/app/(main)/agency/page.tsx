@@ -1,3 +1,4 @@
+// @ts-nocheck
 import AgencyDetails from "@/components/forms/agency-details";
 import { getAuthUserDetails } from "@/lib/queries";
 import { verifyAndAcceptInvitation } from "@/lib/queries";

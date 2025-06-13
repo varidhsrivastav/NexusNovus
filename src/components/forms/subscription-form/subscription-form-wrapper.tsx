@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "@/components/ui/use-toast";

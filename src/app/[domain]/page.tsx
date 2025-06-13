@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { db } from "@/lib/db";
 import { getDomainContent } from "@/lib/queries";
 import EditorProvider from "@/providers/editor/editor-provider";

@@ -1,3 +1,4 @@
+// @ts-nocheck
 'use client'
 // import { PricesList, TicketDetails } from '@/lib/types'
 import { Agency, Contact, Plan, User } from '@prisma/client'

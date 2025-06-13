@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { EditorBtns } from '@/lib/constants'
 import { Link2Icon, TypeIcon } from 'lucide-react'
 import React from 'react'

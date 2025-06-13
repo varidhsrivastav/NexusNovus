@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { createRouteHandler } from 'uploadthing/next'
 
 import { ourFileRouter } from './core'

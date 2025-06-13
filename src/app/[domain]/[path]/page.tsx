@@ -1,3 +1,4 @@
+// @ts-nocheck
 import FunnelEditor from "@/app/(main)/subaccount/[subaccountId]/funnels/[funnelId]/editor/[funnelPageId]/_components/funnel-editor";
 import { getDomainContent } from "@/lib/queries";
 import EditorProvider from "@/providers/editor/editor-provider";

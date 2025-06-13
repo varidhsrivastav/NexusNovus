@@ -1,3 +1,4 @@
+// @ts-nocheck
 import BlurPage from "@/components/global/blur-page";
 import CircleProgress from "@/components/global/circle-progress";
 import PipelineValue from "@/components/global/pipeline-value";

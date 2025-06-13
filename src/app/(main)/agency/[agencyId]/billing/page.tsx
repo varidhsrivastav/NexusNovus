@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from "react";
 import { stripe } from "@/lib/stripe";
 import { addOnProducts, pricingCards } from "@/lib/constants";

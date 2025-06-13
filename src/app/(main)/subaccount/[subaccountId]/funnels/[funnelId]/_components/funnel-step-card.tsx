@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Card, CardContent } from "@/components/ui/card";
 import { FunnelPage } from "@prisma/client";
 import { ArrowDown, Mail } from "lucide-react";

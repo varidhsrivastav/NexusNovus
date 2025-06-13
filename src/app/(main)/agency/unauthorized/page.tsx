@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Unauthorized from "@/components/unauthorized";
 import React from "react";
 

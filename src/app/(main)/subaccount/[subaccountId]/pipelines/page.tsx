@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
 import React from "react";

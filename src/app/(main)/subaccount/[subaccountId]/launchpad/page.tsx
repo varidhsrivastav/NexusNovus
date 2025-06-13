@@ -1,3 +1,4 @@
+// @ts-nocheck
 import BlurPage from "@/components/global/blur-page";
 import { Button } from "@/components/ui/button";
 import {

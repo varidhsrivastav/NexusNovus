@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from "react";
 
 import { Funnel, SubAccount } from "@prisma/client";

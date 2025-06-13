@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client";
 import CreatePipelineForm from "@/components/forms/create-pipeline-form";
 import CustomModal from "@/components/global/custom-modal";

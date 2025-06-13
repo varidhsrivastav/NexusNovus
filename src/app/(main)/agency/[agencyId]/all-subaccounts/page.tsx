@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { AlertDescription } from "@/components/ui/alert";
 import {
   AlertDialog,

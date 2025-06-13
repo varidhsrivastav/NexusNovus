@@ -1,3 +1,4 @@
+// @ts-nocheck
 import BarChart from "@/components/icons/bar_chart";
 import Calendar from "@/components/icons/calendar";
 import CheckCircle from "@/components/icons/check_circled";

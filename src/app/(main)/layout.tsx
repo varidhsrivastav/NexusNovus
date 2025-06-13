@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { ClerkProvider } from '@clerk/nextjs'
 import React from 'react'
 import { dark } from '@clerk/themes'

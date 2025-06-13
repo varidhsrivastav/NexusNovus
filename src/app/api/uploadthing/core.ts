@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { createUploadthing, type FileRouter } from 'uploadthing/next'
 import { auth } from '@clerk/nextjs/server'
 

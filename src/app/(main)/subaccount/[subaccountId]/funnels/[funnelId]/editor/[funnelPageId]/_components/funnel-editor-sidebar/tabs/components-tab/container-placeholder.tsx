@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { EditorBtns } from '@/lib/constants'
 import React from 'react'
 

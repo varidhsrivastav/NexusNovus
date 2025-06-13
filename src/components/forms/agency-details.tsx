@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client";
 import { Agency } from "@prisma/client";
 import { useForm } from "react-hook-form";

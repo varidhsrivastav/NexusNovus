@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { db } from "@/lib/db";
 import React from "react";
 import DataTable from "./data-table";

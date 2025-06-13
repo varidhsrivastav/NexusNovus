@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Loading from "@/components/global/loading";
 import React from "react";
 

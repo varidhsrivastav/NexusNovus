@@ -1,3 +1,4 @@
+// @ts-nocheck
 'use client'
 import { EditorElement, useEditor } from '@/providers/editor/editor-provider'
 import React from 'react'

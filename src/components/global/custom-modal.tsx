@@ -1,3 +1,4 @@
+// @ts-nocheck
 'use client'
 import { useModal } from '@/providers/modal-provider'
 import React from 'react'

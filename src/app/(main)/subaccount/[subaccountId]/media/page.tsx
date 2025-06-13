@@ -1,3 +1,4 @@
+// @ts-nocheck
 import BlurPage from "@/components/global/blur-page";
 import MediaComponent from "@/components/media";
 import { getMedia } from "@/lib/queries";

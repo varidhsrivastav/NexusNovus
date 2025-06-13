@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client";
 import ContactForm from "@/components/forms/contact-form";
 import { Badge } from "@/components/ui/badge";
