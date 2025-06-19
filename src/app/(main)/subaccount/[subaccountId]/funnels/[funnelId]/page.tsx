@@ -20,7 +20,7 @@ const FunnelPage = async ({ params }: Props) => {
   return (
     <BlurPage>
       <Link
-        href={`/subaccount/${params.subaccountId}/funnels`}
+        href={`/subaccount/${params?.subaccountId}/funnels`}
         className="flex justify-between gap-4 mb-4 text-muted-foreground"
       >
         Back

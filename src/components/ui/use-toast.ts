@@ -1,6 +1,6 @@
 // Inspired by react-hot-toast library
 import * as React from "react"
-
+import { Toaster } from "@/components/ui/sonner"
 import type {
   ToastActionElement,
   ToastProps,

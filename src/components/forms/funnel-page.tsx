@@ -20,10 +20,10 @@ import {
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "../ui/input";
-
+import { toast } from "sonner"
 import { Button } from "../ui/button";
 import Loading from "../global/loading";
-import { useToast } from "../ui/use-toast";
+// import { useToast } from "../ui/use-toast";
 import { FunnelPage } from "@prisma/client";
 import { FunnelPageSchema } from "@/lib/types";
 import {
@@ -49,7 +49,7 @@ const CreateFunnelPage: React.FC<CreateFunnelPageProps> = ({
   order,
   subaccountId,
 }) => {
-  const { toast } = useToast();
+  // const { toast } = useToast();
   const router = useRouter();
   //ch
   const form = useForm<z.infer<typeof FunnelPageSchema>>({
@@ -169,6 +169,7 @@ const CreateFunnelPage: React.FC<CreateFunnelPageProps> = ({
                   disabled={form.formState.isSubmitting}
                   type="button"
                   onClick={async () => {
+                    console.log("Deleting page", defaultData.id);
                     const response = await deleteFunnelePage(defaultData.id);
                     await saveActivityLogsNotification({
                       agencyId: undefined,
@@ -176,10 +177,13 @@ const CreateFunnelPage: React.FC<CreateFunnelPageProps> = ({
                       subaccountId: subaccountId,
                     });
                     router.refresh();
+                    window.location.reload();
+                    toast("sucess")
                   }}
                 >
                   {form.formState.isSubmitting ? <Loading /> : <Trash />}
                 </Button>
+                
               )}
               {defaultData?.id && (
                 <Button
